@@ -52,12 +52,12 @@ Search Torrent
 ./t411-client -s "ubuntu"
 [INFO] Authentification ...  OK
 [INFO] Recherche en cours ... OK
-      Id                                                                  Title  Seeders   Size
-----------------------------------------------------------------------------------------------------
- 4536589 Linux Ubuntu 11.10 [Processeurs x86-32bits] [Format .iso bootable] [Fr       48   655.0 MB
- 4967435                               Ubuntu-13.10 Desktop-Processeurs 64bits        47   883.0 MB
- 5039097                               Ubuntu Linux 12.04.4 LTS Desktop 32 bits       18   731.0 MB
-  166550                                       Ubuntu-v10.04- FRx32bit(desktop)        3   699.4 MB
+      Id                                                         Title  Seeders   Size
+-------------------------------------------------------------------------------------------
+ 4536589                   Linux Ubuntu 11.10 [Processeurs x86-32bits]       48   655.0 MB
+ 4967435                      Ubuntu-13.10 Desktop-Processeurs 64bits        47   883.0 MB
+ 5039097                      Ubuntu Linux 12.04.4 LTS Desktop 32 bits       18   731.0 MB
+  166550                              Ubuntu-v10.04- FRx32bit(desktop)        3   699.4 MB
 ```
 
 **Search by category**
@@ -65,12 +65,12 @@ Search Torrent
 ./t411-client -s "matrix reloaded" -c video 
 [INFO] Authentification ...  OK
 [INFO] Recherche en cours ... OK
-      Id                                                                  Title  Seeders   Size
-----------------------------------------------------------------------------------------------------
- 4893405                                          Matrix Reloaded mHD 720p.mkv        74   993.1 MB
- 4757948                          The Matrix Reloaded 720P X264 VOSTFR [suprex]       32   1.6 GB
- 4861666                   Matrix.Reloaded.2003.FRENCH.BRRip.x264.AC3-zitoune69       12   2.1 GB
- 4886547 Matrix.Reloaded.(2003).HDLight.720p.x264.MULTI.VFF.VO.AC3.5.1.MULTISUB       31   2.2 GB
+      Id                                                          Title  Seeders   Size
+--------------------------------------------------------------------------------------------
+ 4893405                                  Matrix Reloaded mHD 720p.mkv        74   993.1 MB
+ 4757948                    The Matrix Reloaded 720P X264 VOSTFR [suprex]       32   1.6 GB
+ 4861666             Matrix.Reloaded.2003.FRENCH.BRRip.x264.AC3-zitoune69       12   2.1 GB
+ 4886547            Matrix.Reloaded.(2003).HDLight.720p.x264.MULTI.VFF.VO       31   2.2 GB
 
 ```
 
