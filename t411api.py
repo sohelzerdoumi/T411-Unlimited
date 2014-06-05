@@ -74,7 +74,7 @@ class T411API:
 		params 		= urllib.urlencode(datas)
 		req 		= urllib2.Request(self.URL+action, params, headers={'Authorization': self.token})
 		response 	= urllib2.urlopen(req).read()
-		if 'error' in response:
+		if '{"error"' in response:
 			logger.print_error( json.loads(response)['error'] )	
 			exit()	
 		return response

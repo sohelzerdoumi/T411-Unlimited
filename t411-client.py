@@ -17,13 +17,13 @@ class MainApp:
 	def setupOptions(self):
 		parser = OptionParser()
 
-		group_search = OptionGroup(parser, "Search torrents","Search torrent by keywords and category")
+		group_search = OptionGroup(parser, "* Search torrents","Search torrent by keywords and category")
 		group_search.add_option("-s", dest="search",help="Expected keywords")
 		group_search.add_option('-c', dest="category", type='choice', 
 				choices=['video', 'music', 'game', 'software'],help="video, music, game, software")
 		parser.add_option_group(group_search)
 
-		group_download = OptionGroup(parser, "Download Torrent","Download torrent locally")
+		group_download = OptionGroup(parser, "* Download Torrent","Download torrent locally")
 		group_download.add_option("-d", dest="download",help="Torrent id")
 		parser.add_option_group(group_download)
 
