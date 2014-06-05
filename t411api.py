@@ -66,8 +66,10 @@ class T411API:
 			@param int tid : id of the expected torrent
 			@return torrent data
 		"""
-		logger.print_info("Download torrent ... ")
-		return self.__call("torrents/download/%s" % tid)
+		logger.print_info("Download torrent ... ",eol='')
+		torrent = self.__call("torrents/download/%s" % tid)
+		logger.print_ok()
+		return torrent
 
 	def details(self,tid):
 		"""

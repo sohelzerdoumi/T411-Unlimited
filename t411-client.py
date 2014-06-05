@@ -3,6 +3,7 @@ from optparse import *
 from t411api import *
 from ConfigParser import *
 import tempfile, bencoded,os,logger
+import transmissionrpc,base64,sys,time
 from utils import *
 
 class MainApp:
@@ -25,6 +26,8 @@ class MainApp:
 
 		group_download = OptionGroup(parser, "* Download Torrent","Download torrent locally")
 		group_download.add_option("-d", dest="download",help="Torrent id")
+		group_download.add_option("-m", dest='mode', type='choice', default="local",
+				choices=['local','transmission'],help="local, transmission")
 		parser.add_option_group(group_download)
 
 		(self.options, args) = parser.parse_args()
@@ -46,6 +49,14 @@ class MainApp:
 	def processDownload(self):
 		tclient = T411API(self.config.get('account','username'),self.config.get('account','password'))
 		torrent_datas = tclient.download( self.options.download ) 
+
+		if self.options.mode == 'local':
+			self.processDownloadLocal(torrent_datas)
+		elif self.options.mode == 'transmission':
+			self.processDownloadTransmission(torrent_datas)
+
+
+	def processDownloadLocal(self,torrent_datas):
 		torrent_datas = torrent_replace_announce( torrent_datas, self.config.get('tracker','url') )
 
 		tmp_filename = "%s/%s.torrent" % ( tempfile.gettempdir(),self.options.download )
@@ -54,6 +65,26 @@ class MainApp:
 		logger.print_info("Lancement du torrent ... %s " % self.config.get('global','torrent-client'))
 		os.system( self.config.get('global','torrent-client') % tmp_filename )
 
+	def processDownloadTransmission(self,torrent_datas):
+		torrent_datas = torrent_replace_announce( torrent_datas, self.config.get('transmission','tracker') )
+		logger.print_info('Connexion au server transmission ... ', eol='')
+		tc = transmissionrpc.Client( self.config.get('transmission','host') ,
+		 	port=self.config.get('transmission','port') ,
+		 	user=self.config.get('transmission','username'),
+		 	password=self.config.get('transmission','password'))
+		logger.print_ok()
+		logger.print_info("Upload du torrent ... ",eol='')
+		torrent = tc.add_torrent(base64.b64encode(torrent_datas))
+		logger.print_ok()
+		
+		torrent = tc.get_torrent(torrent.id)
+		while torrent.progress < 100:
+			sys.stdout.write('\r %.2f%% [%-100s] ' % ( torrent.progress, "="*int(torrent.progress)+">" ))
+			sys.stdout.flush()
+			torrent = tc.get_torrent(torrent.id)
+			time.sleep(1)
+		print '\r 100%% [%s]   '%('='*100)
+		logger.print_success( 'Download complet' )
 
 try:
 	app = MainApp()

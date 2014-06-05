@@ -7,7 +7,6 @@ def write_into_file(filename,datas):
 
 def torrent_replace_announce(torrent_datas,new_tracker):
 	torrent_decoded = bencoded.decode(torrent_datas)
-	print torrent_decoded['announce']
 	torrent_decoded['announce'] = new_tracker
 	return bencoded.encode(torrent_decoded)
 

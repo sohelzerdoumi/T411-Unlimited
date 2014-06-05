@@ -100,7 +100,10 @@ def format_color(string, fg=None, bg=None):
     return _set_color(fg, bg) + string + _reset_color()
 
 def print_info(datas, eol="\r\n"):
-	print_color('[INFO] %s' % datas, fg=rgb(0, 0, 9), end=eol)
+    print_color('[INFO] %s' % datas, fg=rgb(0, 0, 9), end=eol)
+
+def print_success(datas, eol="\r\n"):
+    print_color('[SUCCESS] %s' % datas, fg=rgb(0, 10, 0), end=eol)
 
 def print_ok():
 	print_color(' OK', fg=rgb(0, 10, 0))
