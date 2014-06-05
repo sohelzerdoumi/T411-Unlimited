@@ -36,15 +36,15 @@ class MainApp:
 			self.processDownload()
 
 	def processSearch(self):
-		tclient = T411API()
+		tclient = T411API(self.config.get('account','username'),self.config.get('account','password'))
 		torrents = tclient.search(self.options.search, self.options.category) 
-		print "%8s %70s %8s   %4s" % ("Id","Title","Seeders","Size")
-		print "-"*100
+		print "%8s %18s %70s %8s   %4s" % ("Id","Categorie","Title","Seeders","Size")
+		print "-"*120
 		for torrent in torrents:
-			print "%8s %70s %8s   %4s" % (torrent.id,torrent.title[:70],torrent.seeders, sizeof_fmt( torrent.size) )
+			print "%8s %18s %70s %8s   %4s" % (torrent.tid,torrent.categoryname,torrent.name[:70],torrent.seeders, sizeof_fmt( torrent.size) )
 
 	def processDownload(self):
-		tclient = T411API()
+		tclient = T411API(self.config.get('account','username'),self.config.get('account','password'))
 		torrent_datas = tclient.download( self.options.download ) 
 		torrent_datas = torrent_replace_announce( torrent_datas, self.config.get('tracker','url') )
 
