@@ -1,7 +1,7 @@
 #!/usr/bin/env python2
 from optparse import *
 from t411api import *
-from ConfigParser import SafeConfigParser
+from ConfigParser import *
 import tempfile, bencoded,os,logger
 from utils import *
 
@@ -54,5 +54,9 @@ class MainApp:
 		logger.print_info("Lancement du torrent ... %s " % self.config.get('global','torrent-client'))
 		os.system( self.config.get('global','torrent-client') % tmp_filename )
 
-app = MainApp()
-app.run()
+
+try:
+	app = MainApp()
+	app.run()
+except NoSectionError,e:
+	logger.print_error( "Invalid config.ini ( %s )" % e )

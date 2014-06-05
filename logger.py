@@ -105,3 +105,5 @@ def print_info(datas, eol="\r\n"):
 def print_ok():
 	print_color(' OK', fg=rgb(0, 10, 0))
 
+def print_error(datas):
+    print_color('[ERROR] %s' % datas, fg=rgb(5, 0, 0))
