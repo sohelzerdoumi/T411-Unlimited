@@ -1,0 +1,10 @@
+[global]
+torrent-client = xdg-open %%s
+
+[account]
+username = myusername
+password = mypassword
+tracker = http://tracker.t411.me:56969/{my personnal key}/announce
+
+[tracker] 
+url = http://localhost:16992/announce
