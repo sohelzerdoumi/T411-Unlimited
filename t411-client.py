@@ -62,21 +62,24 @@ class MainApp:
 		tmp_filename = "%s/%s.torrent" % ( tempfile.gettempdir(),self.options.download )
 		write_into_file( tmp_filename, torrent_datas )
 		
-		logger.print_info("Lancement du torrent ... %s " % self.config.get('global','torrent-client'))
-		os.system( self.config.get('global','torrent-client') % tmp_filename )
+		cmd =  self.config.get('global','torrent-client') % tmp_filename 
+		logger.print_info("Lancement du torrent [ %s ] " % cmd)
+		os.system(cmd)
 
 	def processDownloadTransmission(self,torrent_datas):
 		torrent_datas = torrent_replace_announce( torrent_datas, self.config.get('transmission','tracker') )
+
 		logger.print_info('Connexion au server transmission ... ', eol='')
 		tc = transmissionrpc.Client( self.config.get('transmission','host') ,
 		 	port=self.config.get('transmission','port') ,
 		 	user=self.config.get('transmission','username'),
 		 	password=self.config.get('transmission','password'))
 		logger.print_ok()
+
 		logger.print_info("Upload du torrent ... ",eol='')
 		torrent = tc.add_torrent(base64.b64encode(torrent_datas))
 		logger.print_ok()
-		
+
 		torrent = tc.get_torrent(torrent.id)
 		while torrent.progress < 100:
 			sys.stdout.write('\r %.2f%% [%-100s] ' % ( torrent.progress, "="*int(torrent.progress)+">" ))
@@ -85,6 +88,7 @@ class MainApp:
 			time.sleep(1)
 		print '\r 100%% [%s]   '%('='*100)
 		logger.print_success( 'Download complet' )
+		tc.stop_torrent(torrent)
 
 try:
 	app = MainApp()
