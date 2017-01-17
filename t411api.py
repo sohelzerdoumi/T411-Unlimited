@@ -27,7 +27,7 @@ class T411API:
 		API to interact with api.t411.me
 
 	"""
-	URL      = "https://api.t411.me/"
+	URL      = "https://api.t411.li/"
 	USERNAME = None
 	PASSWORD = None
 	CATEGORY = {
@@ -118,7 +118,7 @@ class T411API:
 			@return answer body
 		"""
 		params 		= urllib.urlencode(datas)
-		req 		= urllib2.Request(self.URL+action, params, headers={'Authorization': self.token})
+		req 		= urllib2.Request(self.URL+action, params, headers={'Authorization': self.token, 'User-agent': 'Mozilla/5.0'})
 		response 	= urllib2.urlopen(req).read()
 		if '{"error"' in response:
 			logger.print_error( json.loads(response)['error'] )	
